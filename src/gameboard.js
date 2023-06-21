@@ -3,17 +3,33 @@ import { Ship } from "./ship";
 class GameBoard {
   constructor() {
     this.shipPlacement = [];
+    this.board = []
   }
 
-  placeShip(ship, x, y) {
-    function createObject(ship, x, y) {
+  constructBoard() {
+    let x = 0;
+    for (let y = 0; x < 10; y++) {
+      if (y === 9) {
+        y = 0;
+        x += 1
+        this.board.push([x, y])
+      } else {
+        this.board.push([x,y])
+      }
+    }
+    return this.board
+  }
+
+  placeShip(ship,direction, x, y) {
+    function createObject(ship, direction, x, y) {
       const obj = {
         ship: ship,
+        direction: direction,
         coordinates: [x, y],
       };
       return obj;
     }
-    this.shipPlacement.push(createObject(ship, x, y));
+    this.shipPlacement.push(createObject(ship,direction, x, y));
   }
 
   getshipPlacement() {
