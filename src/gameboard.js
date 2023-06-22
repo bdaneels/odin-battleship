@@ -1,26 +1,25 @@
-import { Ship } from "./ship";
-
 class GameBoard {
   constructor() {
     this.shipPlacement = [];
-    this.board = []
+    this.board = [];
+    this.misses = [];
+    this.allShipsSunk = false;
   }
 
   constructBoard() {
     let x = 0;
     for (let y = 0; x < 10; y++) {
-      if (y === 9) {
-        y = 0;
-        x += 1
-        this.board.push([x, y])
+      if (y === 10) {
+        y = -1;
+        x += 1;
       } else {
-        this.board.push([x,y])
+        this.board.push([x, y]);
       }
     }
-    return this.board
+    return this.board;
   }
 
-  placeShip(ship,direction, x, y) {
+  placeShip(ship, direction, x, y) {
     function createObject(ship, direction, x, y) {
       const obj = {
         ship: ship,
@@ -29,21 +28,36 @@ class GameBoard {
       };
       return obj;
     }
-    this.shipPlacement.push(createObject(ship,direction, x, y));
+    this.shipPlacement.push(createObject(ship, direction, x, y));
   }
 
   getshipPlacement() {
     return this.shipPlacement;
   }
 
-  recieveAttack(x, y) {
-      let array = this.shipPlacement;
-      if (array.some(obj => obj.coordinates[0] === x && obj.coordinates[1] === y)) {
-          console.log('im hit')
-      }
-      
+  receiveAttack(x, y) {
+    let array = this.shipPlacement;
+    if (
+      array.some((obj) => obj.coordinates[0] === x && obj.coordinates[1] === y)
+    ) {
+      let result = array.find(
+        (obj) => obj.coordinates[0] === x && obj.coordinates[1] === y
+      );
+      result.ship.hit();
+    } else {
+      this.misses.push([x, y]);
+    }
+  }
+
+  checkForSunk() {
+    let array = this.shipPlacement;
+    let result = array.find((obj) => obj.ship.isSunk() === false);
+    if (!result) {
+      this.allShipsSunk = true;
+    } else {
+      return false;
+    }
   }
 }
 
-
-export {GameBoard};
+export { GameBoard };
