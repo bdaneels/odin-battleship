@@ -13,6 +13,7 @@ test('attack function leads to other player turn', () => {
     const player2 = new Player('cpu')
     const cpuBoard = new GameBoard()
     const playerBoard = new GameBoard()
+    player1.setTurn()
     player1.attack(6,4,cpuBoard,player2)
 
 
@@ -24,6 +25,7 @@ test('attack function ends current player turn', () => {
     const player2 = new Player('cpu')
     const cpuBoard = new GameBoard()
     const playerBoard = new GameBoard()
+    player1.setTurn()
     player1.attack(6,4,cpuBoard,player2)
 
 
