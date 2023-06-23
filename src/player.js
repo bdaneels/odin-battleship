@@ -1,3 +1,5 @@
+import { botAI } from "./ai";
+
 export default class Player {
   constructor(name) {
     this.name = name;
@@ -28,7 +30,9 @@ export default class Player {
     if (this.turn) {
     enemyBoard.receiveAttack(e,x, y);
     enemyPlayer.setTurn();
-    this.endTurn()
+    
+    this.endTurn() 
+    botAI.turn()
     }  
 
     
