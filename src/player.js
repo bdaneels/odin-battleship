@@ -28,7 +28,7 @@ export default class Player {
     if (this.turn) {
     enemyBoard.receiveAttack(e,x, y);
     enemyPlayer.setTurn();
-    /* this.endTurn(); commented out for testing purposes makes the player always have the turn*/ 
+    this.endTurn()
     }  
 
     

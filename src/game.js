@@ -28,4 +28,5 @@ export function game() {
 
     domHandler.generateBoards(playerBoard,computerBoard)
     player1.setTurn()
+    
 }

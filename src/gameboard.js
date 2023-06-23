@@ -5,7 +5,10 @@ class GameBoard {
     this.misses = [];
     this.allShipsSunk = false;
   }
-
+  getAllShipsSunk(){
+    return this.allShipsSunk
+  }
+  
   getBoard() {
     return this.board
   }
@@ -48,6 +51,7 @@ class GameBoard {
         (obj) => obj.coordinates[0] === x && obj.coordinates[1] === y)
       result.ship.hit();
       e.target.classList.add('hit');
+      this.checkForSunk()
       
     } else {
       this.misses.push([x, y]);
