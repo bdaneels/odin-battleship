@@ -7,6 +7,8 @@ import { Ship } from "./ship";
 export function game() {
     let player1 = new Player('Human')
     let player2 = new Player('computer')
+    domHandler.setPlayers(player1, player2)
+
     let playerBoard = new GameBoard()
     let computerBoard = new GameBoard()
 
@@ -22,5 +24,8 @@ export function game() {
     computerBoard.placeShip(new Ship('submarine', 4), 'vertical', 4, 0)
     computerBoard.placeShip(new Ship('carrier', 5), 'vertical', 0, 0)
 
-    domHandler.generatBoards(playerBoard,computerBoard)
+    console.log(computerBoard.getshipPlacement())
+
+    domHandler.generateBoards(playerBoard,computerBoard)
+    player1.setTurn()
 }

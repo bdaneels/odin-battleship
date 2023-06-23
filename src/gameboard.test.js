@@ -27,7 +27,7 @@ test("register ship hit", () => {
   const ship = new Ship("patrol", 3);
   const board = new GameBoard();
   board.placeShip(ship, "vertical", 4, 8);
-  board.receiveAttack(4, 8);
+  board.receiveAttack(null, 4, 8);
 
   expect(ship.hits).toBe(1);
 });
@@ -36,8 +36,8 @@ test("register ship mis", () => {
   const ship = new Ship("patrol", 3);
   const board = new GameBoard();
   board.placeShip(ship, "vertical", 4, 8);
-  board.receiveAttack(5, 8);
-  board.receiveAttack(6, 9);
+  board.receiveAttack(null, 5, 8);
+  board.receiveAttack(null, 6, 9);
 
   expect(board.misses).toStrictEqual([
     [5, 8],
@@ -57,7 +57,7 @@ test("report all ships sunk", () => {
   const ship = new Ship("patrol", 1);
   const board = new GameBoard();
   board.placeShip(ship, "vertical", 4, 8);
-  board.receiveAttack(4, 8);
+  board.receiveAttack(null, 4, 8);
   board.checkForSunk();
 
   expect(board.allShipsSunk).toBeTruthy();
@@ -69,7 +69,7 @@ test("check for one alive, one sunk", () => {
   const board = new GameBoard();
   board.placeShip(ship, "vertical", 4, 8);
   board.placeShip(ship2, "horizontal", 0, 0);
-  board.receiveAttack(4, 8);
+  board.receiveAttack(null,4, 8);
   board.checkForSunk();
 
   expect(board.allShipsSunk).toBeFalsy();
@@ -81,8 +81,8 @@ test("check for two sunk", () => {
   const board = new GameBoard();
   board.placeShip(ship, "vertical", 4, 8);
   board.placeShip(ship2, "horizontal", 0, 0);
-  board.receiveAttack(4, 8);
-  board.receiveAttack(0, 0);
+  board.receiveAttack(null,4, 8);
+  board.receiveAttack(null,0, 0);
   board.checkForSunk();
 
   expect(board.allShipsSunk).toBeTruthy();

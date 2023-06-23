@@ -24,11 +24,11 @@ export default class Player {
     return this.name;
   }
     
-    attack(x, y, enemyBoard, enemyPlayer) {
+    attack(e,x, y, enemyBoard, enemyPlayer) {
     if (this.turn) {
-    enemyBoard.receiveAttack(x, y);
+    enemyBoard.receiveAttack(e,x, y);
     enemyPlayer.setTurn();
-    this.endTurn();
+    /* this.endTurn(); commented out for testing purposes makes the player always have the turn*/ 
     }  
 
     

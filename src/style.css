@@ -27,3 +27,11 @@
 .cpucell{
     @apply h-10 w-10 border border-black rounded-sm
 }
+
+.hit{
+    @apply bg-red-600
+}
+
+.miss{
+    @apply bg-blue-300
+}

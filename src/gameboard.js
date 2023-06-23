@@ -39,17 +39,19 @@ class GameBoard {
     return this.shipPlacement;
   }
 
-  receiveAttack(x, y) {
+  receiveAttack(e, x, y) {
     let array = this.shipPlacement;
     if (
-      array.some((obj) => obj.coordinates[0] === x && obj.coordinates[1] === y)
+      array.some(obj => obj.coordinates[0] === x && obj.coordinates[1] === y)
     ) {
       let result = array.find(
-        (obj) => obj.coordinates[0] === x && obj.coordinates[1] === y
-      );
+        (obj) => obj.coordinates[0] === x && obj.coordinates[1] === y)
       result.ship.hit();
+      e.target.classList.add('hit');
+      
     } else {
       this.misses.push([x, y]);
+      e.target.classList.add('miss')
     }
   }
 
