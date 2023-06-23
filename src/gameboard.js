@@ -6,6 +6,10 @@ class GameBoard {
     this.allShipsSunk = false;
   }
 
+  getBoard() {
+    return this.board
+  }
+
   constructBoard() {
     let x = 0;
     for (let y = 0; x < 10; y++) {
