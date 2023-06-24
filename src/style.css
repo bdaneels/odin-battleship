@@ -35,3 +35,9 @@
 .miss{
     @apply bg-blue-300
 }
+
+.highlighted{
+    @apply bg-slate-600
+}
+
+.hit,
