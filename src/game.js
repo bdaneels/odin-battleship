@@ -12,12 +12,11 @@ export function game() {
 
     let playerBoard = new GameBoard()
     let computerBoard = new GameBoard()
+    domHandler.generateBoards(playerBoard,computerBoard)
+    domHandler.displayConsole('place your ships')
+    domHandler.addEventListenerBTNS()
+    domHandler.playerPlacement(playerBoard)
 
-    playerBoard.placeShip(new Ship('patrol', 2), 'vertical', 4, 8)
-    playerBoard.placeShip(new Ship('destroyer', 3), 'vertical', 9, 0)
-    playerBoard.placeShip(new Ship('destroyer', 3), 'vertical', 6, 5)
-    playerBoard.placeShip(new Ship('submarine', 4), 'vertical', 4, 0)
-    playerBoard.placeShip(new Ship('carrier', 5), 'vertical', 0, 0)
     
     computerBoard.placeShip(new Ship('patrol', 2), 'vertical', 4, 8)
     computerBoard.placeShip(new Ship('destroyer', 3), 'vertical', 5, 9)
@@ -27,8 +26,9 @@ export function game() {
 
     console.log(computerBoard.getshipPlacement())
 
-    domHandler.generateBoards(playerBoard,computerBoard)
+    
     botAI.setBoard(playerBoard,player1,player2)
     player1.setTurn()
+    
     
 }
