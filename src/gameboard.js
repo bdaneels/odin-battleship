@@ -1,3 +1,5 @@
+import { domHandler } from "./dom";
+
 class GameBoard {
   constructor() {
     this.shipPlacement = [];
@@ -59,7 +61,22 @@ class GameBoard {
 
   receiveAttack(e, x, y) {
     let array = this.shipPlacement;
-    if (array.some((obj) => obj.coordinates.some(([xCoord, yCoord]) => xCoord === x && yCoord === y))) {
+    if(e === null){
+
+      if (array.some((obj) => obj.coordinates.some(([xCoord, yCoord]) => xCoord === x && yCoord === y))) {
+        let result = array.find((obj) => obj.coordinates.some(([xCoord, yCoord]) => xCoord === x && yCoord === y));
+        result.ship.hit();
+         /* logic here for manipulating player board dom */
+        domHandler.updatePlayerDom(x,y,'hit')
+         this.checkForSunk();
+      } else {
+        this.misses.push([x, y]);
+        domHandler.updatePlayerDom(x,y,'miss')
+      }}
+      
+    
+
+    else{if (array.some((obj) => obj.coordinates.some(([xCoord, yCoord]) => xCoord === x && yCoord === y))) {
       let result = array.find((obj) => obj.coordinates.some(([xCoord, yCoord]) => xCoord === x && yCoord === y));
       result.ship.hit();
       e.target.classList.add("hit");
@@ -67,7 +84,7 @@ class GameBoard {
     } else {
       this.misses.push([x, y]);
       e.target.classList.add("miss");
-    }
+    }}
   }
 
   checkForSunk() {

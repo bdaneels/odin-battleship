@@ -6,7 +6,7 @@ import { Ship } from "./ship";
 
 
 export function game() {
-    let player1 = new Player('Human')
+    let player1 = new Player('human')
     let player2 = new Player('computer')
     domHandler.setPlayers(player1, player2)
 
@@ -28,7 +28,7 @@ export function game() {
     console.log(computerBoard.getshipPlacement())
 
     domHandler.generateBoards(playerBoard,computerBoard)
-    botAI.setBoard(playerBoard,player1)
+    botAI.setBoard(playerBoard,player1,player2)
     player1.setTurn()
     
 }

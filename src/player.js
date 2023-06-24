@@ -32,7 +32,8 @@ export default class Player {
     enemyPlayer.setTurn();
     
     this.endTurn() 
-    botAI.turn()
+    if (this.name === 'human'){botAI.turn()}
+    
     }  
 
     

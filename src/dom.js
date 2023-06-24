@@ -10,6 +10,28 @@ const domHandler = (() => {
         player2 = p2
     }
 
+    function updatePlayerDom(x,y,state){
+        const elements = document.querySelectorAll('.playercell')
+        
+        for (var i = 0; i<elements.length; i++){
+            let dataValue = elements[i].getAttribute('data')
+
+            let data = dataValue.split(',')
+            let dataX = parseInt(data[0])
+            let dataY = parseInt(data[1])
+            if (dataX === x && dataY=== y){
+              if(state === 'hit')  {elements[i].classList.add('hit')}
+              else{
+                elements[i].classList.add('miss')
+              }
+            }
+            
+
+        }
+    }
+
+
+
     function generateBoards(board1, board2) {
         const playerContainer = document.getElementById('player')
         const cpuContainer = document.getElementById('cpu')
@@ -37,7 +59,8 @@ const domHandler = (() => {
 
     return{
         generateBoards,
-        setPlayers
+        setPlayers,
+        updatePlayerDom
     }
 
 })()
