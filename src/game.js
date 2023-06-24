@@ -10,8 +10,8 @@ export function game() {
     let player2 = new Player('computer')
     domHandler.setPlayers(player1, player2)
 
-    let playerBoard = new GameBoard()
-    let computerBoard = new GameBoard()
+    let playerBoard = new GameBoard(player1)
+    let computerBoard = new GameBoard(player2)
     domHandler.generateBoards(playerBoard,computerBoard)
     domHandler.displayConsole('place your ships')
     domHandler.addEventListenerBTNS()

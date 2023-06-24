@@ -39,3 +39,7 @@
 .highlighted{
     @apply bg-slate-600
 }
+
+button {
+    @apply bg-white py-8 px-10 rounded-lg hover:opacity-50
+}

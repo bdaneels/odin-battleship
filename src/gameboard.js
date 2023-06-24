@@ -1,11 +1,12 @@
 import { domHandler } from "./dom";
 
 class GameBoard {
-  constructor() {
+  constructor(player) {
     this.shipPlacement = [];
     this.board = [];
     this.misses = [];
     this.allShipsSunk = false;
+    this.player = player
   }
   getAllShipsSunk(){
     return this.allShipsSunk
@@ -26,6 +27,41 @@ class GameBoard {
       }
     }
     return this.board;
+  }
+
+  checkPlacementLegality(ship, direction, x , y){
+    let arrayCoordinates = [[x,y]]
+    
+      if(direction === 'vertical'){
+        for(let n = 1;n < ship.length; n+=1){
+          arrayCoordinates.push([x+n,y])
+        }
+      } else{
+        for(let n = 1;n < ship.length; n+=1){
+          arrayCoordinates.push([x,y+n])
+        }
+
+      }
+      
+
+      function checkArrayForValue(arr, value) {
+        for (var i = 0; i < arr.length; i++) {
+          var subarray = arr[i];
+          for (var j = 0; j < subarray.length; j++) {
+            var element = subarray[j];
+            if (element >= value) {
+              return false;
+            }
+          }
+        }
+        return true;
+      }
+
+      if(checkArrayForValue(arrayCoordinates,10)){
+        return true
+    } 
+  
+    
   }
 
   placeShip(ship, direction, x, y) {
@@ -92,7 +128,8 @@ class GameBoard {
     let result = array.find((obj) => obj.ship.isSunk() === false);
     if (!result) {
       this.allShipsSunk = true;
-      console.log('all ships sunk')
+      domHandler.endGame(this.player)
+      domHandler.setGameStart(false)
     } else {
       return false;
     }

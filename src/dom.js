@@ -59,7 +59,10 @@ const domHandler = (() => {
 
         
     }
-
+    function endGame(player){
+        let name = player.name
+        domHandler.displayConsole(`${name} lost! Reload the page to play again!`)
+    }
 
     function playerPlacement(playerBoard){
         let destroyer1 = new Ship('destroyer',3)
@@ -69,20 +72,22 @@ const domHandler = (() => {
         let carrier = new Ship('carrier',5)
 
         let shipArray = [carrier,submarine,destroyer2,destroyer1,patrol]
-        domHandler.displayConsole('place your carrier l5')
+        domHandler.displayConsole('Welcome to Battleship! Start the game by placing your carrier on the player board')
 
         let playerCells = document.querySelectorAll('.playercell')
         playerCells.forEach(function(playerCell) {
-            playerCell.addEventListener('click', function(event) {
+            playerCell.addEventListener('click', function(e){
               if(shipArray.length > 0){
-              let coordinates = this.getAttribute('data')
-              playerBoard.placeShip(shipArray[0],direction,parseInt(coordinates[0]),parseInt(coordinates[2]))
+              const coordinates = this.getAttribute('data')
+
+              if(playerBoard.checkPlacementLegality(shipArray[0],direction,parseInt(coordinates[0]),parseInt(coordinates[2])))
+              {playerBoard.placeShip(shipArray[0],direction,parseInt(coordinates[0]),parseInt(coordinates[2]))
               shipArray.shift()
               if(shipArray.length > 0) {domHandler.displayConsole(`Place your ${shipArray[0].name}`)} else{
-                domHandler.displayConsole('All ships placed')
+                domHandler.displayConsole('All ships placed! Continue by guessing on the NPC board')
                 gameStart = true
               }
-            }
+            }else{domHandler.displayConsole('choose a legal placement')}}
             domHandler.updatePlayerDomPlacement(playerBoard,playerCells)
             });
           });
@@ -143,7 +148,9 @@ const domHandler = (() => {
             cpuContainer.appendChild(cell)
         }
     }
-
+    function setGameStart(value){
+        gameStart = value
+    }
     return{
         generateBoards,
         setPlayers,
@@ -151,7 +158,9 @@ const domHandler = (() => {
         displayConsole,
         addEventListenerBTNS,
         playerPlacement,
-        updatePlayerDomPlacement
+        updatePlayerDomPlacement,
+        endGame,
+        setGameStart
     }
 
 })()
