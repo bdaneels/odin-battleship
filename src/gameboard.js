@@ -6,14 +6,14 @@ class GameBoard {
     this.board = [];
     this.misses = [];
     this.allShipsSunk = false;
-    this.player = player
+    this.player = player;
   }
-  getAllShipsSunk(){
-    return this.allShipsSunk
+  getAllShipsSunk() {
+    return this.allShipsSunk;
   }
-  
+
   getBoard() {
-    return this.board
+    return this.board;
   }
 
   constructBoard() {
@@ -29,53 +29,48 @@ class GameBoard {
     return this.board;
   }
 
-  checkPlacementLegality(ship, direction, x , y){
-    let arrayCoordinates = [[x,y]]
-    
-      if(direction === 'vertical'){
-        for(let n = 1;n < ship.length; n+=1){
-          arrayCoordinates.push([x+n,y])
-        }
-      } else{
-        for(let n = 1;n < ship.length; n+=1){
-          arrayCoordinates.push([x,y+n])
-        }
+  checkPlacementLegality(ship, direction, x, y) {
+    let arrayCoordinates = [[x, y]];
 
+    if (direction === "vertical") {
+      for (let n = 1; n < ship.length; n += 1) {
+        arrayCoordinates.push([x + n, y]);
       }
-      
+    } else {
+      for (let n = 1; n < ship.length; n += 1) {
+        arrayCoordinates.push([x, y + n]);
+      }
+    }
 
-      function checkArrayForValue(arr, value) {
-        for (var i = 0; i < arr.length; i++) {
-          var subarray = arr[i];
-          for (var j = 0; j < subarray.length; j++) {
-            var element = subarray[j];
-            if (element >= value) {
-              return false;
-            }
+    function checkArrayForValue(arr, value) {
+      for (var i = 0; i < arr.length; i++) {
+        var subarray = arr[i];
+        for (var j = 0; j < subarray.length; j++) {
+          var element = subarray[j];
+          if (element >= value) {
+            return false;
           }
         }
-        return true;
       }
+      return true;
+    }
 
-      if(checkArrayForValue(arrayCoordinates,10)){
-        return true
-    } 
-  
-    
+    if (checkArrayForValue(arrayCoordinates, 10)) {
+      return true;
+    }
   }
 
   placeShip(ship, direction, x, y) {
-    let arrayCoordinates = [[x,y]]
-    function calculateCoordinates (){
-      if(direction === 'vertical'){
-        for(let n = 1;n < ship.length; n+=1){
-          arrayCoordinates.push([x+n,y])
+    let arrayCoordinates = [[x, y]];
+    function calculateCoordinates() {
+      if (direction === "vertical") {
+        for (let n = 1; n < ship.length; n += 1) {
+          arrayCoordinates.push([x + n, y]);
         }
-      } else{
-        for(let n = 1;n < ship.length; n+=1){
-          arrayCoordinates.push([x,y+n])
+      } else {
+        for (let n = 1; n < ship.length; n += 1) {
+          arrayCoordinates.push([x, y + n]);
         }
-
       }
     }
 
@@ -87,7 +82,7 @@ class GameBoard {
       };
       return obj;
     }
-    calculateCoordinates()
+    calculateCoordinates();
     this.shipPlacement.push(createObject());
   }
 
@@ -97,30 +92,48 @@ class GameBoard {
 
   receiveAttack(e, x, y) {
     let array = this.shipPlacement;
-    if(e === null){
-
-      if (array.some((obj) => obj.coordinates.some(([xCoord, yCoord]) => xCoord === x && yCoord === y))) {
-        let result = array.find((obj) => obj.coordinates.some(([xCoord, yCoord]) => xCoord === x && yCoord === y));
+    if (e === null) {
+      if (
+        array.some((obj) =>
+          obj.coordinates.some(
+            ([xCoord, yCoord]) => xCoord === x && yCoord === y
+          )
+        )
+      ) {
+        let result = array.find((obj) =>
+          obj.coordinates.some(
+            ([xCoord, yCoord]) => xCoord === x && yCoord === y
+          )
+        );
         result.ship.hit();
-         /* logic here for manipulating player board dom */
-        domHandler.updatePlayerDom(x,y,'hit')
-         this.checkForSunk();
+        /* logic here for manipulating player board dom */
+        domHandler.updatePlayerDom(x, y, "hit");
+        this.checkForSunk();
       } else {
         this.misses.push([x, y]);
-        domHandler.updatePlayerDom(x,y,'miss')
-      }}
-      
-    
-
-    else{if (array.some((obj) => obj.coordinates.some(([xCoord, yCoord]) => xCoord === x && yCoord === y))) {
-      let result = array.find((obj) => obj.coordinates.some(([xCoord, yCoord]) => xCoord === x && yCoord === y));
-      result.ship.hit();
-      e.target.classList.add("hit");
-      this.checkForSunk();
+        domHandler.updatePlayerDom(x, y, "miss");
+      }
     } else {
-      this.misses.push([x, y]);
-      e.target.classList.add("miss");
-    }}
+      if (
+        array.some((obj) =>
+          obj.coordinates.some(
+            ([xCoord, yCoord]) => xCoord === x && yCoord === y
+          )
+        )
+      ) {
+        let result = array.find((obj) =>
+          obj.coordinates.some(
+            ([xCoord, yCoord]) => xCoord === x && yCoord === y
+          )
+        );
+        result.ship.hit();
+        e.target.classList.add("hit");
+        this.checkForSunk();
+      } else {
+        this.misses.push([x, y]);
+        e.target.classList.add("miss");
+      }
+    }
   }
 
   checkForSunk() {
@@ -128,8 +141,8 @@ class GameBoard {
     let result = array.find((obj) => obj.ship.isSunk() === false);
     if (!result) {
       this.allShipsSunk = true;
-      domHandler.endGame(this.player)
-      domHandler.setGameStart(false)
+      domHandler.endGame(this.player);
+      domHandler.setGameStart(false);
     } else {
       return false;
     }

@@ -69,7 +69,7 @@ test("check for one alive, one sunk", () => {
   const board = new GameBoard();
   board.placeShip(ship, "vertical", 4, 8);
   board.placeShip(ship2, "horizontal", 0, 0);
-  board.receiveAttack(null,4, 8);
+  board.receiveAttack(null, 4, 8);
   board.checkForSunk();
 
   expect(board.allShipsSunk).toBeFalsy();
@@ -81,8 +81,8 @@ test("check for two sunk", () => {
   const board = new GameBoard();
   board.placeShip(ship, "vertical", 4, 8);
   board.placeShip(ship2, "horizontal", 0, 0);
-  board.receiveAttack(null,4, 8);
-  board.receiveAttack(null,0, 0);
+  board.receiveAttack(null, 4, 8);
+  board.receiveAttack(null, 0, 0);
   board.checkForSunk();
 
   expect(board.allShipsSunk).toBeTruthy();
